@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="MAIN" Id="{f9e7fdaf-a65c-4791-9436-efb505eb4903}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	initalized : BOOL;
+	pMyArrayOfStructures : POINTER TO ARRAY [0..2] OF MyStructure;
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT initalized THEN
+	
+	pMyArrayOfStructures := __NEW(BYTE, SIZEOF(ARRAY [0..2] OF MyStructure));
+	initalized := TRUE;
+	
+END_IF
+pMyArrayOfStructures^[2].myBool := true;
+pMyArrayOfStructures^[2].myArrayOfBool[2] := TRUE;
+pMyArrayOfStructures^[2].myArrayOfStructures[1].myDint := 123;
+pMyArrayOfStructures^[2].myReal := 3.142;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
